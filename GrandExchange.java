@@ -58,8 +58,8 @@ public class GrandExchange extends PollingScript<ClientContext>{
 	private Slot slot;
 	//TODO IN THE GUI HAVE IT SET TO A SLOT,
 	public static double customFormat(double value ) {
-	      DecimalFormat myFormatter = new DecimalFormat("###.##");
-	      String output = myFormatter.format(value);
+	      	DecimalFormat myFormatter = new DecimalFormat("###.##");
+	     	String output = myFormatter.format(value);
 		return Double.parseDouble(output);
 	   }
 	
