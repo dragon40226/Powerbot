@@ -13,11 +13,16 @@ public class GrandExchange extends PollingScript<ClientContext>{
 
 	public enum Slot {
 		SLOT_1(geWidget.component(28),geWidget.component(170),geWidget.component(174)),
+		
 		SLOT_2(geWidget.component(30),geWidget.component(178),geWidget.component(184)),
-		SLOT_3(geWidget.component(33),geWidget.component(170),geWidget.component(175)),
-		SLOT_4(geWidget.component(35),geWidget.component(170),geWidget.component(175)),
-		SLOT_5(geWidget.component(38),geWidget.component(170),geWidget.component(175)),
-		SLOT_6(geWidget.component(39),geWidget.component(170),geWidget.component(175));
+		
+		SLOT_3(geWidget.component(33),geWidget.component(170),geWidget.component(175)),// TODO
+		
+		SLOT_4(geWidget.component(35),geWidget.component(170),geWidget.component(175)),// TODO
+		
+		SLOT_5(geWidget.component(38),geWidget.component(170),geWidget.component(175)),// TODO
+		
+		SLOT_6(geWidget.component(39),geWidget.component(170),geWidget.component(175));// TODO
 		//(MAINSLOTCOMPONENT,BUYBUTTONCOMPONENT,SELLBUTTONCOMPONENT)
 		private Component slot;
 		private Component buyButt;
@@ -58,9 +63,9 @@ public class GrandExchange extends PollingScript<ClientContext>{
 	private Slot slot;
 	//TODO IN THE GUI HAVE IT SET TO A SLOT,
 	public static double customFormat(double value ) {
-	      	DecimalFormat myFormatter = new DecimalFormat("###.##");
-	     	String output = myFormatter.format(value);
-		return Double.parseDouble(output);
+	      DecimalFormat myFormatter = new DecimalFormat("###.##");
+	      String output = myFormatter.format(value);
+	      return Double.parseDouble(output);
 	   }
 	
 	public void buyOffer(){//Buy item with specified id at specified slot
