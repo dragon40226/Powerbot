@@ -10,8 +10,8 @@ import org.powerbot.script.rt4.Widgets;
 
 public class GrandExchange extends PollingScript<ClientContext>{
 	public final Widget geWidget = ctx.widgets.widget(105); //How to make this static?
-	
-	public static enum Slot {
+
+	public enum Slot {
 		SLOT_1(geWidget.component(28),geWidget.component(170),geWidget.component(174)),
 		SLOT_2(geWidget.component(30),geWidget.component(178),geWidget.component(184)),
 		SLOT_3(geWidget.component(33),geWidget.component(170),geWidget.component(175)),
@@ -40,37 +40,42 @@ public class GrandExchange extends PollingScript<ClientContext>{
 		public Component getSellButt() {
 			return sellButt;
 		}
-		
-	}
+		public String getCustomizedPrice(){ // gets price you are buying or selling for at specified ge slot
+			return getSlot().component(10).text();//returns string .text()
+		}
 
-	
-	public double customFormat(double value ) {
+		public String getName(){ //gets name of item at specified ge slot
+			return getSlot().component(9).text();
+		}
+
+		public double getPercentSold(){ // gets the current width of the bar on the main gewidget and divides it by total width
+			int width = getSlot().component(4).width();
+			int percentSold = (width/133)*100;
+			return customFormat(percentSold); //format is 3 digits with 2 decimal places. returns integer
+			
+		}
+	}
+	private Slot slot;
+	//TODO IN THE GUI HAVE IT SET TO A SLOT,
+	public static double customFormat(double value ) {
 	      DecimalFormat myFormatter = new DecimalFormat("###.##");
 	      String output = myFormatter.format(value);
 		return Double.parseDouble(output);
 	   }
 	
-	public String getPrice(int slot){ // gets price you are buying or selling for at specified ge slot
-		return getSlot(slot).component(10).text();
+	public void buyOffer(){//Buy item with specified id at specified slot
+		Component currentSlot = slot.getSlot();
+		if(currentSlot != null){
+			slot.buyButt.interact("");//get actionText of buying
+			//type into box item
+			
+		}
 	}
 
-	public String getName(int slot){ //gets name of item at specified ge slot
-		return getSlot(slot).component(9).text();
-	}
-	
-	public double getPercentSold(int slot){ // gets the current width of the bar on the main gewidget and devides it by total width
-		int width = getSlot(slot).component(4).width();
-		int percentSold = (width/133)*100;
-		return customFormat(percentSold); //format is 3 digits with 2 decimal places.
-	}
-	public void buyItem(int id, int slot){//Buy item with specified id at specified slot
-		
-	}
-	
 	@Override
 	public void poll() {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 }
