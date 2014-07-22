@@ -1,4 +1,6 @@
 import java.text.DecimalFormat;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.powerbot.script.PollingScript;
 import org.powerbot.script.rt4.ClientContext;
@@ -7,44 +9,46 @@ import org.powerbot.script.rt4.Widget;
 import org.powerbot.script.rt4.Widgets;
 
 public class GrandExchange extends PollingScript<ClientContext>{
-	public final Widget geWidget = ctx.widgets.widget(105);
+	public final Widget geWidget = ctx.widgets.widget(105); //How to make this static?
 	
-	private enum Slot {
+	public static enum Slot {
 		SLOT_1(geWidget.component(28),geWidget.component(170),geWidget.component(174)),
 		SLOT_2(geWidget.component(30),geWidget.component(178),geWidget.component(184)),
 		SLOT_3(geWidget.component(33),geWidget.component(170),geWidget.component(175)),
 		SLOT_4(geWidget.component(35),geWidget.component(170),geWidget.component(175)),
 		SLOT_5(geWidget.component(38),geWidget.component(170),geWidget.component(175)),
 		SLOT_6(geWidget.component(39),geWidget.component(170),geWidget.component(175));
-		
 		//(MAINSLOTCOMPONENT,BUYBUTTONCOMPONENT,SELLBUTTONCOMPONENT)
+		private Component slot;
+		private Component buyButt;
+		private Component sellButt;
+
+		private Slot(Component slot,Component buyButt,Component sellButt){
+			this.slot = slot;
+			this.buyButt = buyButt;
+			this.sellButt = sellButt;
+		}
+
+		public Component getSlot() {
+			return slot;
+		}
+
+		public Component getBuyButt() {
+			return buyButt;
+		}
+
+		public Component getSellButt() {
+			return sellButt;
+		}
+		
 	}
+
 	
 	public double customFormat(double value ) {
 	      DecimalFormat myFormatter = new DecimalFormat("###.##");
 	      String output = myFormatter.format(value);
 		return Double.parseDouble(output);
 	   }
-
-	public Component getSlot(int slot){
-		Widget geWidget = ctx.widgets.widget(105);
-		switch(slot){
-		case 1:
-			return geWidget.component(28);
-		case 2:
-			return geWidget.component(30);
-		case 3:
-			return geWidget.component(33);
-		case 4:
-			return geWidget.component(35);
-		case 5:
-			return geWidget.component(37);
-		case 6:
-			return geWidget.component(39);
-		default:
-			return geWidget.component(28); //Default is first slot
-		}
-	}
 	
 	public String getPrice(int slot){ // gets price you are buying or selling for at specified ge slot
 		return getSlot(slot).component(10).text();
